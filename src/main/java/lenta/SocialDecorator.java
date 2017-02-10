@@ -5,25 +5,26 @@ import lenta.entity.WeightEnum;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
 
 /**
  * Created by Ruslan on 2/7/2017.
  */
 public class SocialDecorator extends LentaDecorator{
-    public SocialDecorator(Lenta lenta) {
+    public SocialDecorator(Lenta lenta, int totalNumberOfFriends) {
         super(lenta);
+        this.totalNumberOfFriends = totalNumberOfFriends;
+        List<Event> events = super.getEventsWithWeights();
+        for (Event event : events) {
+            event.getWeights().put(WeightEnum.FACEBOOK, ((double) (event.getFriendsCount())) / totalNumberOfFriends);
+        }
+        Collections.sort(events, Collections.<Event>reverseOrder());
     }
 
     @Override
     public List<Event> getEventsWithWeights() {
-        //TODO remove after implementation
-        Random random = new Random();
-        List<Event> events = super.getEventsWithWeights();
-        for (Event event : events) {
-            event.getWeights().put(WeightEnum.FACEBOOK,random.nextDouble());
-        }
-        Collections.sort(events);
-        return events;
+        return super.getEventsWithWeights();
     }
+
+    private int totalNumberOfFriends;
 }

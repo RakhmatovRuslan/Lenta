@@ -13,33 +13,35 @@ import java.util.List;
  */
 public class TestLenta {
 
-    List<Event> events;
-
     List<Event> eventsWithLocationWeights;
     List<Event> eventsWithSocialWeights;
     List<Event> eventsWithLocationAndSocialWeights;
 
     Lenta lenta;
 
-    @Before
-    public void initData(){
-        events = Arrays.asList(
+
+    public static List<Event> getEvents() {
+        return Arrays.asList(
                 new Event(1L,100.0,6)
                 ,new Event(20L,55.0,2)
                 ,new Event(6L,35.0,2)
                 ,new Event(36L,1000.0,2)
                 ,new Event(4L,60.5,10)
         );
+    }
+
+    @Before
+    public void initData() {
         // Location Decorator test
-        lenta = new LocationDecorator(new SimpleLenta(events));
+        lenta = new LocationDecorator(new SimpleLenta(getEvents()));
         eventsWithLocationWeights = lenta.getEventsWithWeights();
 
         // Social Decorator test
-        lenta = new SocialDecorator(new SimpleLenta(events));
+        lenta = new SocialDecorator(new SimpleLenta(getEvents()), 100);
         eventsWithSocialWeights = lenta.getEventsWithWeights();
 
         // Location and Social Decorator test
-        lenta = new LocationDecorator(new SocialDecorator(new SimpleLenta(events)));
+        lenta = new LocationDecorator(new SocialDecorator(new SimpleLenta(getEvents()), 100));
         eventsWithLocationAndSocialWeights = lenta.getEventsWithWeights();
     }
 

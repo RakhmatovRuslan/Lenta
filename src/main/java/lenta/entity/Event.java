@@ -18,7 +18,7 @@ public class Event implements Comparable<Event>{
         this.ID = ID;
         this.distance = distance;
         this.friendsCount = friendsCount;
-        totalWeight = 0.0;
+        this.totalWeight = 0.0;
         weights = new HashMap<WeightEnum, Double>();
     }
 
@@ -51,8 +51,8 @@ public class Event implements Comparable<Event>{
     }
 
     public Double getTotalWeight() {
-        if(this.totalWeight == 0.0)
-        for(Map.Entry<WeightEnum, Double> entry : weights.entrySet()){
+        totalWeight = 0.0;
+        for (Map.Entry<WeightEnum, Double> entry : weights.entrySet()) {
             totalWeight += entry.getValue();
         }
         return totalWeight;

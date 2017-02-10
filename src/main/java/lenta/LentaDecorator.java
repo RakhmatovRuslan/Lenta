@@ -18,4 +18,5 @@ public class LentaDecorator implements Lenta {
     public List<Event> getEventsWithWeights() {
         return lenta.getEventsWithWeights();
     }
+
 }
